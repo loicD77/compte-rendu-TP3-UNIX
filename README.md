@@ -274,6 +274,14 @@ Exemple de sortie : Si le répertoire /chemin/vers/repertoire contient deux sous
 
 ## user.sh : 
 
+* Voici ld script de user.sh:
+
+```bash 
+  GNU nano 6.2                                            users.sh                                                      #!/bin/bash
+awk -F: '$3 > 100 {print $1}' /etc/passwd
+```
+
+
 ### La commande awk
 * awk est un utilitaire puissant utilisé pour la manipulation et l'extraction de données à partir de fichiers texte. Ici, il est utilisé pour traiter le fichier /etc/passwd, qui contient des informations sur les utilisateurs du système.
 * -F: : Cette option indique à awk que le fichier /etc/passwd utilise : (deux-points) comme séparateur de champs. Chaque ligne du fichier /etc/passwd contient plusieurs champs séparés par des deux-points.
@@ -300,6 +308,18 @@ nom_utilisateur:x:UID:GID:description:home_directory:shell
 
 
 ## create-user.sh
+
+* Voici le script de create-user.sh :
+
+```bash 
+  GNU nano 6.2                                         create-user.sh                                                   #!/bin/bash
+[ "$(id -u)" -eq 0 ] || { echo "Vous devez être root."; exit 1; }
+read -p "Login : " login
+id "$login" &>/dev/null && { echo "$login existe."; exit 1; }
+useradd "$login" && echo "Utilisateur $login créé."
+
+```
+
 
 ### Vérification que l'utilisateur exécutant le script est root
 * **(id -u) :** Cette commande récupère l'ID utilisateur (UID) de l'utilisateur courant. L'UID de root est toujours 0.
@@ -344,6 +364,13 @@ Utilisateur john créé.
 
 ## check-user.sh
 
+
+```bash
+  GNU nano 6.2                                          check-user.sh                                                   #!/bin/bash
+id "$1" &>/dev/null && echo "L'utilisateur $1 existe." || echo "L'utilisateur $1 n'existe pas."
+
+
+```
 
 ### Vérification que l'utilisateur est root
 
@@ -451,27 +478,60 @@ fi
 
 # Parcourt chaque fichier dans le répertoire donné
 for fichier in "$1"/*; do
-    # Vérifie si c'est un fichier régulier
-    if [ -f "$fichier" ]; then
-        # Vérifie si c'est un fichier texte
-        if file "$fichier" | grep -q "text"; then
-            echo "Voulez-vous visualiser le fichier $(basename "$fichier") ? (o/n)"
-            read reponse
-            
-            if [[ "$reponse" == "o" || "$reponse" == "O" ]]; then
-                more "$fichier"
-            fi
+    # Vérifie si c'est un fichier régulier et texte
+    if [ -f "$fichier" ] && file "$fichier" | grep -q "text"; then
+        echo "Voulez-vous visualiser le fichier $(basename "$fichier") ? (o/n)"
+        read reponse
+        
+        if [[ "$reponse" == "o" || "$reponse" == "O" ]]; then
+            more "$fichier"  # Utilise more pour l'affichage page par page
         fi
     fi
 done
 
+```
+
+```bash
+
+Voici un exemple d'utilisation : 
+
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# ./visualisation-fichier.sh test_repertoire
+Voulez-vous visualiser fichier1.txt ? (o/n) o
+Ceci est un fichier texte
+Voulez-vous visualiser fichier2.txt ? (o/n) o
+Autre contenu texte
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# nano visualisation-fichier.sh
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# ./visualisation-fichier.sh test_repertoire
+Voulez-vous visualiser le fichier fichier1.txt ? (o/n)
+o
+Ceci est un fichier texte
+Voulez-vous visualiser le fichier fichier2.txt ? (o/n)
+o
+Autre contenu texte
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3#
+
+```
+
+## note.sh
+
+```bash
+  GNU nano 6.2                                             note.sh                                                      #!/bin/bash
+while :; do
+  read -p "Note (q pour quitter) : " note
+  case $note in
+    [16-9]|1[6-9]) echo "Très bien" ;;
+    14|15) echo "Bien" ;;
+    12|13) echo "Assez bien" ;;
+    10|11) echo "Moyen" ;;
+    [0-9]) echo "Insuffisant" ;;
+    q) break ;;
+    *) echo "Entrée invalide" ;;
+  esac
+done
 
 
 ```
 
-
-
-## note.sh
 
 ### while :; do
 

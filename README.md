@@ -69,6 +69,34 @@ fi
 echo "Voici la liste des paramètres : $@"
 ```
 
+###  Afficher le nombre de paramètres fournis :
+
+* echo : Affiche du texte à l'écran. (On peut aussi utiliser **printf**)
+* $# : Représente le nombre de paramètres (arguments) fournis au script. Si vous exécutez le script avec par exemple ./script.sh arg1 arg2 arg3, alors ceci sera égal à 3.
+
+### Afficher le nom du script :
+
+* **basename $0**: La commande basename prend en entrée un chemin et renvoie le nom de fichier sans le chemin complet. Ici, $0 représente le nom du script en cours d'exécution.
+
+* Si le script s'appelle script.sh, la commande basename $0 affichera juste script.sh.
+
+###  Vérifier si au moins 3 paramètres ont été fournis
+
+* if [ $# -ge 3 ] : Cette condition vérifie si le nombre de paramètres (est supérieur ou égal à 3 (-ge signifie "greater than or equal", c'est-à-dire "supérieur ou égal").
+* echo "Le 3ème paramètre est $3" : Si 3 paramètres ou plus ont été fournis, cette ligne affiche le troisième paramètre ($3).
+* else : Si moins de 3 paramètres sont fournis, il affiche un message indiquant que le troisième paramètre n'a pas été fourni.
+
+## Afficher la liste des paramètres
+* $@ : Représente la liste de tous les paramètres passés au script. Chacun des paramètres est traité comme une chaîne distincte.
+* Résultat attendu : Affiche la liste de tous les paramètres fournis. Par exemple, si vous exécutez ./script.sh arg1 arg2 arg3, la sortie sera :
+
+```bash 
+Voici la liste des paramètres : arg1 arg2 arg3
+```
+
+
+Voici la liste des paramètres : arg1 arg2 arg3
+
 
 
 
@@ -110,11 +138,14 @@ echo "Concaténation : $1$2"
 ### Shebang (#!/bin/bash)
 
 
-* C'est une ligne spéciale appelée "shebang" qui indique au système quel interpréteur utiliser pour exécuter le script. Dans ce cas, il indique que le script doit être exécuté avec Bash, qui est un interpréteur de commandes courant sur les systèmes UNIX et Linux.
+* Le shebang est donc une ligne spéciale qui montre au système quel type interpréteur utiliser pour exécuter le script concerné. 
+* Dans mon contexte, le script  qui doit être exécuté avec Bash est indiqué, ceci est interpréteur de commandes populaire sur les systèmes UNIX et Linux.
+
+
 
 
 ### Vérification du nombre de paramètres ([ $# -eq 2 ] || { echo "Il faut 2 paramètres."; exit 1; })
-* **$#** :   C'est une variable spéciale qui contient le nombre d'arguments passés au script. Par exemple, si j'exécute **./concat.sh arg1 arg2** , alors ici cette variable sera égal à 2.
+* **$#** :   C'est une variable particulière qui a le nombre d'arguments passés au script. Par exemple, si j'exécute **./concat.sh arg1 arg2** , alors ici cette variable sera égal à 2.
 * **[ $# -eq 2 ]** : Ici ma condition vérifie donc si le nombre d'arguments est **égal à 2**. En effet la syntaxe -eq signifie "égal à".
 * **||** : C'est un opérateur logique "OU". Si la condition à gauche ($# -eq 2) est fausse, alors la commande à droite sera exécutée.
 * **{ echo "Il faut 2 paramètres."; exit 1; }** : Si le nombre d'arguments n'est pas égal à 2, ce bloc de code sera exécuté :
@@ -125,8 +156,8 @@ echo "Concaténation : $1$2"
 ### Affichage de la concaténation (echo "Concaténation : $1$2")
 
 
-* echo : C'est donc une commande qui affiche un message sur la sortie standard (typiquement le terminal).
-* "Concaténation : $1$2" : C'est la chaîne de texte qui sera affichée.
+* echo : la sortie standard reflète un message (souvent le terminal).
+* "Concaténation : $1$2" : Concatène (groissièrement rassembler dans l'ordre indiqué) les chaînes de caractères
 * $1 : Représente le premier argument passé au script.
 * $2 : C'est donc ici le deuxième argument passé au script.
 * En concaténant $1 et $2 (sans espace), le script affichera la concaténation des deux arguments. Par exemple, si vous exécutez ./concat.sh Hello World, le script affichera Concaténation : HelloWorld.
@@ -134,5 +165,24 @@ echo "Concaténation : $1$2"
 
 ### Résumé du fonctionnement du script :
 
-* Le script commence par s'assurer qu'il a reçu exactement 2 arguments. Si ce n'est pas le cas, il affiche un message d'erreur et quitte avec un code d'erreur.
-* Si les deux arguments sont présents, il concatène les deux chaînes et affiche le résultat.
+* Le script vérifie que j'ai mis 2 arguments. Sinon j'ai  un message d'erreur et un code d'erreur.
+* Donc si  mes deux seules arguments sont présents, il concatène les deux chaînes contenues dans ces derniers  et affiche le résultat.
+
+
+
+## test-fichier.sh
+
+Voici le script de ce dernier : 
+
+```bash 
+
+  GNU nano 6.2                                         test-fichier.sh                                                  #!/bin/bash
+[ -e "$1" ] || { echo "$1 n'existe pas."; exit 1; }
+[ -f "$1" ] && echo "$1 est un fichier." || [ -d "$1" ] && echo "$1 est un répertoire."
+[ -r "$1" ] && echo "Lisible."
+[ -w "$1" ] && echo "Modifiable."
+[ -x "$1" ] && echo "Exécutable."
+
+
+
+```

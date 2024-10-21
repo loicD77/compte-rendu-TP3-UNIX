@@ -526,16 +526,16 @@ root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3#
 ### IV) Read file et more
 
 * Comment quitter more ?
-  * Appuyez sur q.
+  * Il suffit d'appuyer sur q.
 
 * Comment avancer d’une ligne ?
-  * Appuyez sur Entrée.
+  * Il faut appuyer sur Entrée.
 
 * Comment avancer d’une page ?
-  * Appuyez sur la barre d'espace.
+  * Il faut utiliser la barre d'espace.
 
 * Comment remonter d’une page ?
-  * Appuyez sur b.
+  * Il faut appuyer sur b.
 
 
 
@@ -593,7 +593,7 @@ root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3#
 
 # Conclusion
 
-* Ce TP m'a permis de mieux comprendre l'utilité et la puissance du shell Bash dans un environnement UNIX. En explorant divers scripts et en les développant, j'ai appris à automatiser certaines tâches courantes, à manipuler des fichiers, à traiter des paramètres d'entrée, et à gérer des boucles et des conditions de manière efficace. Cela m'a également sensibilisé à l'importance de la lisibilité du code et des commentaires, ainsi qu'aux bonnes pratiques de sécurité, comme la gestion des droits d'accès.
+* Ce TP m'a donc permis de mieux comprendre l'utilité et la puissance du shell Bash dans un environnement de type UNIX. En explorant divers scripts et en les développant, j'ai appris à automatiser certaines tâches courantes, comme manipuler des fichiers, traiter des paramètres d'entrée, et gérer des boucles et des conditions de manière efficace. Cela m'a également sensibilisé à l'importance de la lisibilité du code et des commentaires, ainsi qu'aux bonnes pratiques de sécurité, comme la gestion des droits d'accès.
 
 * Bien que Bash soit limité pour des projets complexes comparé à des langages comme Python, il reste un outil indispensable pour l'administration système et la gestion des serveurs. La maîtrise de ces concepts est essentielle pour tout professionnel travaillant dans un environnement Unix/Linux, surtout pour l'automatisation de tâches répétitives et la gestion des systèmes distants.
 

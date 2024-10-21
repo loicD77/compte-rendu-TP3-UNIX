@@ -21,29 +21,31 @@ DARRAS Loïc L3 PRO PROJET WEB ET MOBILE
 
 
 
-## Table des Matières
+
+# Table des Matières
 
 
-1. [Secure Shell : SSH](#i-secure-shell--ssh)
-   - [1.1 Connexion SSH root et configuration](#11-connexion-ssh-root-et-configuration)
-   - [1.2 Authentification par clé / Génération de clés](#12-authentification-par-clé--génération-de-clés)
-   - [1.3 Authentification par clé / Connexion serveur](#13-authentification-par-clé--connexion-serveur)
-   - [1.4 Authentification par clé depuis la machine hôte](#14-authentification-par-clé-depuis-la-machine-hôte)
-   - [1.5 Sécurisation de l'accès SSH](#15-sécurisation-de-laccès-ssh)
-2. [Processus](#ii--processus)
-    - [2.1 Étude des processus UNIX](#21-exercice--etude-des-processus-unix)
-      - [2.1.1 Affichage des processus](#211-affichage-des-processus)
-      - [2.1.2 PPID et processus parent](#212-ppid-et-processus-parent)
-      - [2.1.3 Commande `pstree`](#213-commande-pstree)
-      - [2.1.4 Utilisation de la commande `top` et `htop`](#214-utilisation-de-la-commande-top-et-htop)
-3. [Arrêt d'un processus](#iii-arrêt-dun-processus)
-4. [Les tubes](#iv-les-tubes)
-5. [Journal système rsyslog](#v-journal-système-rsyslog)
-   
+1. [Liste des scripts](#liste-des-scripts)
+   - [1.1 analyse.sh](#i-analysesh)
+   - [1.2 Concat.sh](#ii-concatsh)
+   - [1.3 Test-fichier.sh](#iii-test-fichiersh)
+   - [1.4 Listedir.sh](#iv-listedirsh)
+   - [1.5 User.sh](#v-usersh)
+   - [1.6 Create-user.sh](#vi-create-usersh)
+   - [1.7 Check-user.sh](#vii-check-usersh)
+   - [1.8 Note.sh](#viii-notesh)
+
+2. [Exercice : lecture au clavier](#exercice--lecture-au-clavier)
+   - [2.1 La commande bash read](#i-la-commande-bash-read)
+   - [2.2 La commande file](#ii-la-commande-file)
+   - [2.3 La commande more](#iii-la-commande-more)
+   - [2.4 Read file et more](#iv-read-file-et-more)
+   - [2.5 Écrire un script](#v-ecrire-un-script)
 
 
-# Présentation/Introduction du travail (avant la table des matières et les explications)
+3. [Conclusion](#conclusion)
 
+# Liste des scripts
 
 ## I) analyse.sh
 
@@ -170,7 +172,7 @@ echo "Concaténation : $1$2"
 
 
 
-## test-fichier.sh
+## III) test-fichier.sh
 
 Voici le script de ce dernier : 
 
@@ -219,7 +221,7 @@ Voici le script de ce dernier :
 * && : Si la condition est vraie, le message "Exécutable." est affiché
 
 
-## listedir.sh
+## IV) listedir.sh
 
 ### Afficher les fichiers dans le répertoire donné
 
@@ -272,7 +274,7 @@ Exemple de sortie : Si le répertoire /chemin/vers/repertoire contient deux sous
 /chemin/vers/repertoire/sous-repertoire2
 ```
 
-## user.sh : 
+## V) user.sh : 
 
 * Voici ld script de user.sh:
 
@@ -307,7 +309,7 @@ nom_utilisateur:x:UID:GID:description:home_directory:shell
 * shell : Le shell par défaut de l'utilisateur (par exemple, /bin/bash).
 
 
-## create-user.sh
+## VI) create-user.sh
 
 * Voici le script de create-user.sh :
 
@@ -362,7 +364,7 @@ Utilisateur john créé.
 ```
 
 
-## check-user.sh
+## VII) check-user.sh
 
 
 ```bash
@@ -409,110 +411,8 @@ Utilisateur jane créé.
 ```
 
 
-## Exercice : lecture au clavier
 
-### commande bash read permet de lire une chaîne au clavier et de l’affecter à une variable
-
-```bash
-root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# echo -n "Entrer votre nom: "
-read nom
-echo "Votre nom est $nom"
-Entrer votre nom: Darras
-Votre nom est Darras
-root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3#
-```
-
-### La commande file affiche des informations sur le contenu d’un fichier (elle applique des règles :
-bas´ees sur l’examen rapide du contenu du fichier)
-```bash
-root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# nano users.sh
-root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# nano note.sh
-root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# echo -n "Entrer votre nom: "
-read nom
-echo "Votre nom est $nom"
-Entrer votre nom: Darras
-Votre nom est Darras
-root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# echo "Ceci est un fichier texte pour mon TP3." > exemple2.txt
-root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# file exemple2.txt
-exemple2.txt: ASCII text
-root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3#
-```
-
-### Les fichiers de texte peuvent être affichée page par page avec la commande more (ou less, qui est légèrement plus sophistiqu´ee, car less is more...).
-
-```bash
-root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# more exemple2.txt
-Ceci est un fichier texte pour mon TP3.
-root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3#
-```
-
-* Comment quitter more ?
-  * Appuyez sur q.
-
-* Comment avancer d’une ligne ?
-  * Appuyez sur Entrée.
-
-* Comment avancer d’une page ?
-  * Appuyez sur la barre d'espace.
-
-* Comment remonter d’une page ?
-  * Appuyez sur b.
-
-
-
-Comment chercher une chaîne de caractères ?
-Tapez **/votre_chaine** et appuyez sur Entrée. Pour passer à l’occurrence suivante, appuyez sur n.
-
-## Ecrire un script [...]
-
-* Le voici 
-
-```bash
-#!/bin/bash
-
-# Vérifie si un argument a été fourni
-if [ "$#" -ne 1 ]; then
-    echo "Usage: $0 chemin/du/répertoire"
-    exit 1
-fi
-
-# Parcourt chaque fichier dans le répertoire donné
-for fichier in "$1"/*; do
-    # Vérifie si c'est un fichier régulier et texte
-    if [ -f "$fichier" ] && file "$fichier" | grep -q "text"; then
-        echo "Voulez-vous visualiser le fichier $(basename "$fichier") ? (o/n)"
-        read reponse
-        
-        if [[ "$reponse" == "o" || "$reponse" == "O" ]]; then
-            more "$fichier"  # Utilise more pour l'affichage page par page
-        fi
-    fi
-done
-
-```
-
-```bash
-
-Voici un exemple d'utilisation : 
-
-root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# ./visualisation-fichier.sh test_repertoire
-Voulez-vous visualiser fichier1.txt ? (o/n) o
-Ceci est un fichier texte
-Voulez-vous visualiser fichier2.txt ? (o/n) o
-Autre contenu texte
-root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# nano visualisation-fichier.sh
-root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# ./visualisation-fichier.sh test_repertoire
-Voulez-vous visualiser le fichier fichier1.txt ? (o/n)
-o
-Ceci est un fichier texte
-Voulez-vous visualiser le fichier fichier2.txt ? (o/n)
-o
-Autre contenu texte
-root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3#
-
-```
-
-## note.sh
+## VIII) note.sh
 
 ```bash
   GNU nano 6.2                                             note.sh                                                      #!/bin/bash
@@ -582,3 +482,119 @@ Si l'une de ces conditions est remplie, le script affiche "Très bien".
 ## Fin de la boucle
 
 * La boucle while continue jusqu'à ce que l'utilisateur entre q.
+
+
+
+
+#  Exercice : lecture au clavier
+
+### I) La commande bash read 
+
+```bash
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# echo -n "Entrer votre nom: "
+read nom
+echo "Votre nom est $nom"
+Entrer votre nom: Darras
+Votre nom est Darras
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3#
+```
+
+### II) La commande file 
+bas´ees sur l’examen rapide du contenu du fichier)
+```bash
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# nano users.sh
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# nano note.sh
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# echo -n "Entrer votre nom: "
+read nom
+echo "Votre nom est $nom"
+Entrer votre nom: Darras
+Votre nom est Darras
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# echo "Ceci est un fichier texte pour mon TP3." > exemple2.txt
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# file exemple2.txt
+exemple2.txt: ASCII text
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3#
+```
+
+### III) La commande more
+
+```bash
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# more exemple2.txt
+Ceci est un fichier texte pour mon TP3.
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3#
+```
+
+### IV) Read file et more
+
+* Comment quitter more ?
+  * Appuyez sur q.
+
+* Comment avancer d’une ligne ?
+  * Appuyez sur Entrée.
+
+* Comment avancer d’une page ?
+  * Appuyez sur la barre d'espace.
+
+* Comment remonter d’une page ?
+  * Appuyez sur b.
+
+
+
+Comment chercher une chaîne de caractères ?
+Tapez **/votre_chaine** et appuyez sur Entrée. Pour passer à l’occurrence suivante, appuyez sur n.
+
+### V) Ecrire un script 
+
+* Le voici 
+
+```bash
+#!/bin/bash
+
+# Vérifie si un argument a été fourni
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 chemin/du/répertoire"
+    exit 1
+fi
+
+# Parcourt chaque fichier dans le répertoire donné
+for fichier in "$1"/*; do
+    # Vérifie si c'est un fichier régulier et texte
+    if [ -f "$fichier" ] && file "$fichier" | grep -q "text"; then
+        echo "Voulez-vous visualiser le fichier $(basename "$fichier") ? (o/n)"
+        read reponse
+        
+        if [[ "$reponse" == "o" || "$reponse" == "O" ]]; then
+            more "$fichier"  # Utilise more pour l'affichage page par page
+        fi
+    fi
+done
+
+```
+
+```bash
+
+Voici un exemple d'utilisation : 
+
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# ./visualisation-fichier.sh test_repertoire
+Voulez-vous visualiser fichier1.txt ? (o/n) o
+Ceci est un fichier texte
+Voulez-vous visualiser fichier2.txt ? (o/n) o
+Autre contenu texte
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# nano visualisation-fichier.sh
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# ./visualisation-fichier.sh test_repertoire
+Voulez-vous visualiser le fichier fichier1.txt ? (o/n)
+o
+Ceci est un fichier texte
+Voulez-vous visualiser le fichier fichier2.txt ? (o/n)
+o
+Autre contenu texte
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3#
+
+```
+
+# Conclusion
+
+* Ce TP m'a permis de mieux comprendre l'utilité et la puissance du shell Bash dans un environnement UNIX. En explorant divers scripts et en les développant, j'ai appris à automatiser certaines tâches courantes, à manipuler des fichiers, à traiter des paramètres d'entrée, et à gérer des boucles et des conditions de manière efficace. Cela m'a également sensibilisé à l'importance de la lisibilité du code et des commentaires, ainsi qu'aux bonnes pratiques de sécurité, comme la gestion des droits d'accès.
+
+* Bien que Bash soit limité pour des projets complexes comparé à des langages comme Python, il reste un outil indispensable pour l'administration système et la gestion des serveurs. La maîtrise de ces concepts est essentielle pour tout professionnel travaillant dans un environnement Unix/Linux, surtout pour l'automatisation de tâches répétitives et la gestion des systèmes distants.
+
+* Finalement, ce TP m'a fourni une base solide en scripting Bash, que je pourrai approfondir et appliquer dans des contextes professionnels à venir.

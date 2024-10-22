@@ -616,22 +616,70 @@ nom_utilisateur:x:UID:GID:description:home_directory:shell
 * Voici le script de create-user.sh :
 
 ```bash 
-  GNU nano 6.2                                         create-user.sh                                                   #!/bin/bash
-[ "$(id -u)" -eq 0 ] || { echo "Vous devez être root."; exit 1; }
-read -p "Login : " login
-id "$login" &>/dev/null && { echo "$login existe."; exit 1; }
-useradd "$login" && echo "Utilisateur $login créé."
+  #!/bin/bash
 
+# Vérifier si l'utilisateur courant est root
+if [ "$USER" != "root" ]; then
+    echo "Ce script doit être exécuté en tant que root."
+    exit 1
+fi
+
+# Demander des informations sur l'utilisateur
+read -p "Entrez le login: " LOGIN
+read -p "Entrez le nom: " NOM
+read -p "Entrez le prénom: " PRENOM
+read -p "Entrez l'UID (laisser vide pour utiliser le système): " USER_UID
+read -p "Entrez le GID (laisser vide pour utiliser le système): " USER_GID
+read -p "Entrez les commentaires: " COMMENTAIRES
+
+# Vérifier si l'utilisateur existe déjà
+if id "$LOGIN" &>/dev/null; then
+   echo "L'utilisateur '$LOGIN' existe déjà."
+    exit 1
+fi
+
+# Vérifier si le répertoire personnel existe déjà
+HOME_DIR="/home/$LOGIN"
+if [ -d "$HOME_DIR" ]; then
+    echo "Le répertoire '$HOME_DIR' existe déjà."
+    exit 1
+fi
+
+# Créer l'utilisateur avec les informations fournies
+if [ -z "$USER_UID" ] && [ -z "$USER_GID" ]; then
+    useradd -m -d "$HOME_DIR" -c "$NOM $PRENOM,$COMMENTAIRES" "$LOGIN"
+else
+    useradd -m -d "$HOME_DIR" -c "$NOM $PRENOM,$COMMENTAIRES" -u "${USER_UID:-$(id -u)}" -g "${USER_GID:-$(id -g)}" "$>fi
+
+# Vérifier si la création de l'utilisateur a réussi
+if [ $? -eq 0 ]; then
+    echo "L'utilisateur '$LOGIN' a été créé avec succès."
+else
+    echo "Erreur lors de la création de l'utilisateur '$LOGIN'."
+    exit 1
+fi
+
+# Créer le répertoire personnel (au cas où useradd ne l'a pas créé)
+mkdir -p "$HOME_DIR"
+chown "$LOGIN":"${USER_GID:-$(id -g)}" "$HOME_DIR"
+
+echo "Le répertoire personnel '$HOME_DIR' a été créé."
 ```
 
 * Test du tp :
 
 ```bash 
-root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# ./create-user.sh
-Login : rootdutp
-Utilisateur rootdutp créé.
-root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# cat /etc/passwd | grep rootdutp
-rootdutp:x:1000:1000::/home/rootdutp:/bin/sh
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# ./create-user2.sh
+Entrez le login: JeanMarc
+Entrez le nom: Marc
+Entrez le prénom: Jean
+Entrez l'UID (laisser vide pour utiliser le système):
+Entrez le GID (laisser vide pour utiliser le système):
+Entrez les commentaires: Compte de JM
+L'utilisateur 'JeanMarc' a été créé avec succès.
+Le répertoire personnel '/home/JeanMarc' a été créé.
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# grep JeanMarc /etc/passwd
+JeanMarc:x:1005:1005:Marc Jean,Compte de JM:/home/JeanMarc:/bin/sh
 root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3#
 
 ```

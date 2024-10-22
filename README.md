@@ -515,7 +515,25 @@ Exemple de sortie : Si le répertoire /chemin/vers/repertoire contient deux sous
 
 ## V) user.sh : 
 
-* Voici ld script de user.sh:
+* Voici le script de user.sh avec **cut**: 
+
+  ```bash
+  #!/bin/bash
+
+  # Lister les utilisateurs avec un UID supérieur à 100
+  for user in $(cut -d: -f1,3 /etc/passwd); do
+    username=$(echo $user | cut -d: -f1)
+    uid=$(echo $user | cut -d: -f2)
+    
+    if [ "$uid" -gt 100 ]; then
+        echo "$username"
+    fi
+  done
+ 
+
+    ```
+
+* Voici le script de user.sh avec **awk**: (user.sh)
 
 ```bash 
   GNU nano 6.2                                            users.sh                                                      #!/bin/bash

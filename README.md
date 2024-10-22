@@ -824,6 +824,8 @@ root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3#
 
 * Comment quitter more ?
   * Appuyez sur q.
+  * 
+   ![q](./img/q.png "q")
 
 * Comment avancer d’une ligne ?
   * Appuyez sur Entrée.

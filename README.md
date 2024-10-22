@@ -39,7 +39,7 @@ DARRAS Loïc L3 PRO PROJET WEB ET MOBILE
    - [2.1 La commande bash read](#i-la-commande-bash-read)
    - [2.2 La commande file](#ii-la-commande-file)
    - [2.3 La commande more](#iii-la-commande-more)
-   - [2.4 Read file et more](#iv-read-file-et-more)
+   - [2.4 Détails sur more](#iv-details-sur-more)
    - [2.5 Écrire un script](#v-ecrire-un-script)
 
 
@@ -820,7 +820,7 @@ Ceci est un fichier texte pour mon TP3.
 root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3#
 ```
 
-### IV) Read file et more
+### IV) Détails sur more
 
 * Comment quitter more ?
   * Appuyez sur q.

@@ -513,7 +513,7 @@ Exemple de sortie : Si le répertoire /chemin/vers/repertoire contient deux sous
 /chemin/vers/repertoire/sous-repertoire2
 ```
 
-## V) user.sh : 
+## V) user.sh 
 
 Utiliser for user in $(cat /etc/passwd) n'est pas idéal car cela ne respecte pas la structure des lignes du fichier, ce qui peut entraîner des erreurs. La méthode avec while et read est plus appropriée pour traiter des fichiers ligne par ligne tout en conservant les relations entre les champs.
 

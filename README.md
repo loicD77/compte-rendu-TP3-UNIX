@@ -684,6 +684,66 @@ root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3#
 
 ```
 
+### Vérification des privilèges root
+
+* **if [ "$USER" != "root" ]; then** : Vérifie si l'utilisateur courant n'est pas root. Le script doit être exécuté par un utilisateur ayant des privilèges administratifs pour pouvoir créer des utilisateurs.
+* **echo** : Affiche un message d'erreur si l'utilisateur n'est pas root.
+* **exit 1** : Quitte le script avec un code d'erreur (1) si la condition est vraie.
+
+
+###  Demande d'informations utilisateur
+
+```bash 
+read -p "Entrez le login: " LOGIN
+read -p "Entrez le nom: " NOM
+read -p "Entrez le prénom: " PRENOM
+read -p "Entrez l'UID (laisser vide pour utiliser le système): " USER_UID
+read -p "Entrez le GID (laisser vide pour utiliser le système): " USER_GID
+read -p "Entrez les commentaires: " COMMENTAIRES
+```
+
+
+* **read -p** : Permet de demander à l'utilisateur de saisir des informations. Les variables (LOGIN, NOM, PRENOM, etc.) contiendront les valeurs saisies.
+
+### Vérification de l'existence de l'utilisateur
+
+* **id "$LOGIN"** : Vérifie si un utilisateur avec le login donné existe déjà. L'opérateur &>/dev/null redirige les messages d'erreur vers /dev/null, évitant ainsi leur affichage.
+* **exit 1** : Quitte le script si l'utilisateur existe déjà.
+
+### Vérification de l'existence du répertoire personnel
+
+* **HOME_DIR="/home/$LOGIN"** : Définit le chemin du répertoire personnel de l'utilisateur.
+* **if [ -d "$HOME_DIR" ]; then** : Vérifie si le répertoire personnel existe déjà.
+* **exit 1 :** Quitte le script si le répertoire existe déjà.
+
+### Création de l'utilisateur
+
+
+* useradd : Commande utilisée pour créer un nouvel utilisateur.
+* -m : Crée le répertoire personnel de l'utilisateur.
+* -d "$HOME_DIR" : Spécifie le chemin du répertoire personnel.
+* -c "$NOM $PRENOM,$COMMENTAIRES" : Ajoute un commentaire (nom et prénom) pour l'utilisateur.
+* -u  : Définit l'UID de l'utilisateur. Si non spécifié, utilise l'UID par défaut.
+* -g  : Définit le GID de l'utilisateur. Si non spécifié, utilise le GID par défaut.
+
+### Vérification de la création de l'utilisateur
+
+* $? : Vérifie le code de sortie de la dernière commande (ici, useradd).
+* -eq 0 : Si le code de sortie est 0, cela signifie que la commande a réussi.
+* echo : Affiche un message de succès ou d'erreur selon le résultat.
+
+### Création du répertoire personnel
+
+* mkdir -p "$HOME_DIR" : Crée le répertoire personnel, même si le script a échoué à le créer avec useradd.
+* chown "$LOGIN":"${USER_GID:-$(id -g)}" "$HOME_DIR" : Change le propriétaire du répertoire personnel pour qu'il corresponde à l'utilisateur nouvellement créé.
+
+### Message de confirmation
+
+```bash 
+echo "Le répertoire personnel '$HOME_DIR' a été créé."
+```
+
+* Affiche un message indiquant que le répertoire personnel a été créé.
 
 
 

@@ -843,8 +843,9 @@ root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3#
 
   ![b](./img/b.png "b")
 
-Comment chercher une chaîne de caractères ?
-Tapez **/votre_chaine** et appuyez sur Entrée. Pour passer à l’occurrence suivante, appuyez sur n.
+* Comment chercher une chaîne de caractères ?
+   * Tapez **/votre_chaine** et appuyez sur Entrée. Pour passer à l’occurrence suivante, appuyez sur n.
+    ![n](./img/n.png "n")
 
 ### V) Ecrire un script 
 

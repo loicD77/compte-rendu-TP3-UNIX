@@ -828,6 +828,8 @@ root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3#
 * Comment avancer d’une ligne ?
   * Appuyez sur Entrée.
 
+      ![entree](./img/entree.png "entree")
+
 * Comment avancer d’une page ?
   * Appuyez sur la barre d'espace.
 

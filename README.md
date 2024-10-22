@@ -10,7 +10,7 @@ DARRAS Loïc L3 PRO PROJET WEB ET MOBILE
    * concat.sh
    * test-fichier.sh
    * listedir.sh
-   * user.sh
+   * users.sh
    * check-user.sh
    * create-user.sh
    * note.sh
@@ -30,7 +30,7 @@ DARRAS Loïc L3 PRO PROJET WEB ET MOBILE
    - [1.2 Concat.sh](#ii-concatsh)
    - [1.3 Test-fichier.sh](#iii-test-fichiersh)
    - [1.4 Listedir.sh](#iv-listedirsh)
-   - [1.5 user.sh](#v-usersh)
+   - [1.5 User.sh](#v-usersh)
    - [1.6 Create-user.sh](#vi-create-usersh)
    - [1.7 Check-user.sh](#vii-check-usersh)
    - [1.8 Note.sh](#viii-notesh)
@@ -69,6 +69,27 @@ fi
 
 # Afficher la liste des paramètres
 echo "Voici la liste des paramètres : $@"
+```
+
+### Test du script : 
+
+```bash 
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# ./analyse.sh param1 param2 param3
+Bonjour, vous avez rentré 3 paramètres.
+Le nom du script est analyse.sh
+Le 3ème paramètre est param3
+Voici la liste des paramètres : param1 param2 param3
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# ./analyse.sh param1 param2 param3 param4
+Bonjour, vous avez rentré 4 paramètres.
+Le nom du script est analyse.sh
+Le 3ème paramètre est param3
+Voici la liste des paramètres : param1 param2 param3 param4
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# ./analyse.sh param1 param2 param3 param4 param5 paramparam lastparam
+Bonjour, vous avez rentré 7 paramètres.
+Le nom du script est analyse.sh
+Le 3ème paramètre est param3
+Voici la liste des paramètres : param1 param2 param3 param4 param5 paramparam lastparam
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3#
 ```
 
 ###  Afficher le nombre de paramètres fournis :
@@ -118,6 +139,9 @@ Voici la liste des paramètres : param1 param2 param3
 root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3#
 ```
 
+
+
+
 * Cela me confirme bien que j'ai rentré **trois paramètres**.
 * Le nom du script est bien **"analyse.sh"**
 * Mon troisième paramètre est bien **param3**
@@ -129,14 +153,23 @@ root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3#
 Voici mon script :
 
 ```bash 
-
-
-  GNU nano 6.2                                            concat.sh                                                     #!/bin/bash
+GNU nano 6.2                                            concat.sh                                                     #!/bin/bash
 
 
 [ $# -eq 2 ] || { echo "Il faut 2 paramètres."; exit 1; }
 echo "Concaténation : $1$2"
 ```
+
+
+### Test du script
+
+```bash 
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# ./concat.sh mot1 mot2
+Concaténation : mot1mot2
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3#
+```
+
+
 ### Shebang (#!/bin/bash)
 
 
@@ -189,6 +222,24 @@ Voici le script de ce dernier :
 
 ```
 
+
+### Test du script 
+
+
+```bash 
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# ./test-fichier.sh /etc/passwd
+/etc/passwd est un fichier.
+/etc/passwd est un répertoire.
+Lisible.
+Modifiable.
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3#
+
+
+```
+
+
+
+
  ### Vérification de l'existence du fichier ou du répertoire
 
  * $1 : Représente le premier argument passé au script, qui devrait être un chemin vers un fichier ou un répertoire.
@@ -222,6 +273,191 @@ Voici le script de ce dernier :
 
 
 ## IV) listedir.sh
+
+
+* Voici le script de ce dernier :
+
+```bash 
+
+
+  GNU nano 6.2                                           listedir.sh                                                    #!/bin/bash
+
+#!/bin/bash
+echo "#### Fichiers dans $1 ####"; find "$1" -maxdepth 1 -type f
+echo "#### Répertoires dans $1 ####"; find "$1" -maxdepth 1 -type d
+```
+
+
+Test du script :
+
+```bash 
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# ./listedir.sh /etc
+#### Fichiers dans /etc ####
+/etc/ca-certificates.conf
+/etc/protocols
+/etc/netconfig
+/etc/sudo.conf
+/etc/hostname
+/etc/ca-certificates.conf.dpkg-old
+/etc/environment
+/etc/gai.conf
+/etc/.pwd.lock
+/etc/xattr.conf
+/etc/networks
+/etc/issue
+/etc/ethertypes
+/etc/shadow-
+/etc/passwd
+/etc/subuid
+/etc/passwd-
+/etc/sudo_logsrvd.conf
+/etc/libaudit.conf
+/etc/group-
+/etc/lsb-release
+/etc/bindresvport.blacklist
+/etc/rsyslog.conf
+/etc/sudoers
+/etc/sysctl.conf
+/etc/inputrc
+/etc/modules
+/etc/deluser.conf
+/etc/services
+/etc/e2scrub.conf
+/etc/timezone
+/etc/nftables.conf
+/etc/ld.so.conf
+/etc/gshadow-
+/etc/issue.net
+/etc/hosts.deny
+/etc/manpath.config
+/etc/login.defs
+/etc/subgid
+/etc/wsl.conf
+/etc/host.conf
+/etc/machine-id
+/etc/magic
+/etc/screenrc
+/etc/fstab
+/etc/logrotate.conf
+/etc/nsswitch.conf
+/etc/bash_completion
+/etc/mime.types
+/etc/shadow
+/etc/fuse.conf
+/etc/hosts.allow
+/etc/hosts
+/etc/adduser.conf
+/etc/debian_version
+/etc/crontab
+/etc/rpc
+/etc/group
+/etc/zsh_command_not_found
+/etc/bash.bashrc
+/etc/ucf.conf
+/etc/gshadow
+/etc/hdparm.conf
+/etc/profile
+/etc/pam.conf
+/etc/debconf.conf
+/etc/mke2fs.conf
+/etc/shells
+/etc/ld.so.cache
+/etc/sensors3.conf
+/etc/wgetrc
+/etc/nanorc
+/etc/locale.gen
+/etc/legal
+/etc/magic.mime
+/etc/locale.alias
+#### Répertoires dans /etc ####
+/etc
+/etc/groff
+/etc/update-manager
+/etc/apt
+/etc/depmod.d
+/etc/cron.daily
+/etc/binfmt.d
+/etc/perl
+/etc/ssh
+/etc/gss
+/etc/bash_completion.d
+/etc/ld.so.conf.d
+/etc/dbus-1
+/etc/kernel
+/etc/rc3.d
+/etc/iproute2
+/etc/pam.d
+/etc/systemd
+/etc/cron.d
+/etc/sysctl.d
+/etc/default
+/etc/logrotate.d
+/etc/console-setup
+/etc/X11
+/etc/cron.monthly
+/etc/security
+/etc/logcheck
+/etc/init.d
+/etc/apparmor.d
+/etc/rc5.d
+/etc/dpkg
+/etc/ldap
+/etc/alternatives
+/etc/ubuntu-advantage
+/etc/rc2.d
+/etc/terminfo
+/etc/rsyslog.d
+/etc/rcS.d
+/etc/cloud
+/etc/PackageKit
+/etc/dhcp
+/etc/modules-load.d
+/etc/rc6.d
+/etc/modprobe.d
+/etc/sensors.d
+/etc/xdg
+/etc/tmpfiles.d
+/etc/udev
+/etc/newt
+/etc/glvnd
+/etc/apport
+/etc/dconf
+/etc/ufw
+/etc/sysstat
+/etc/networkd-dispatcher
+/etc/update-motd.d
+/etc/apparmor
+/etc/profile.d
+/etc/rc0.d
+/etc/environment.d
+/etc/postgresql-common
+/etc/sudoers.d
+/etc/gtk-3.0
+/etc/cron.hourly
+/etc/cron.weekly
+/etc/selinux
+/etc/rc4.d
+/etc/netplan
+/etc/fonts
+/etc/python3
+/etc/polkit-1
+/etc/opt
+/etc/vim
+/etc/postgresql
+/etc/python3.10
+/etc/ca-certificates
+/etc/pm
+/etc/skel
+/etc/ssl
+/etc/landscape
+/etc/rc1.d
+/etc/byobu
+/etc/libnl-3
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3#
+
+
+```
+
 
 ### Afficher les fichiers dans le répertoire donné
 
@@ -274,7 +510,7 @@ Exemple de sortie : Si le répertoire /chemin/vers/repertoire contient deux sous
 /chemin/vers/repertoire/sous-repertoire2
 ```
 
-## V) user.sh
+## V) user.sh : 
 
 * Voici ld script de user.sh:
 
@@ -283,6 +519,25 @@ Exemple de sortie : Si le répertoire /chemin/vers/repertoire contient deux sous
 awk -F: '$3 > 100 {print $1}' /etc/passwd
 ```
 
+
+* Test du script 
+```bash 
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# ./users.sh
+nobody
+systemd-resolve
+messagebus
+systemd-timesync
+syslog
+_apt
+uuidd
+tcpdump
+postgres
+sshd
+landscape
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3#
+
+
+```
 
 ### La commande awk
 * awk est un utilitaire puissant utilisé pour la manipulation et l'extraction de données à partir de fichiers texte. Ici, il est utilisé pour traiter le fichier /etc/passwd, qui contient des informations sur les utilisateurs du système.
@@ -319,6 +574,18 @@ nom_utilisateur:x:UID:GID:description:home_directory:shell
 read -p "Login : " login
 id "$login" &>/dev/null && { echo "$login existe."; exit 1; }
 useradd "$login" && echo "Utilisateur $login créé."
+
+```
+
+* Test du tp :
+
+```bash 
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# ./create-user.sh
+Login : rootdutp
+Utilisateur rootdutp créé.
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# cat /etc/passwd | grep rootdutp
+rootdutp:x:1000:1000::/home/rootdutp:/bin/sh
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3#
 
 ```
 
@@ -371,6 +638,19 @@ Utilisateur john créé.
   GNU nano 6.2                                          check-user.sh                                                   #!/bin/bash
 id "$1" &>/dev/null && echo "L'utilisateur $1 existe." || echo "L'utilisateur $1 n'existe pas."
 
+
+```
+
+
+* Test du script :
+
+```bash
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# ./check-user.sh rootdutp
+L'utilisateur rootdutp existe.
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# ./check-user.sh rootdutp2
+L'utilisateur rootdutp2 n'existe pas.
+
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3#
 
 ```
 
@@ -430,6 +710,23 @@ while :; do
 done
 
 
+```
+
+### Test du script
+
+
+```bash
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# ./note.sh
+Note (q pour quitter) : 14
+Bien
+Note (q pour quitter) : 12
+Assez bien
+Note (q pour quitter) : 18
+Très bien
+Note (q pour quitter) : 4
+Insuffisant
+Note (q pour quitter) : q
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3#
 ```
 
 
@@ -526,16 +823,16 @@ root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3#
 ### IV) Read file et more
 
 * Comment quitter more ?
-  * Il suffit d'appuyer sur q.
+  * Appuyez sur q.
 
 * Comment avancer d’une ligne ?
-  * Il faut appuyer sur Entrée.
+  * Appuyez sur Entrée.
 
 * Comment avancer d’une page ?
-  * Il faut utiliser la barre d'espace.
+  * Appuyez sur la barre d'espace.
 
 * Comment remonter d’une page ?
-  * Il faut appuyer sur b.
+  * Appuyez sur b.
 
 
 
@@ -570,9 +867,11 @@ done
 
 ```
 
+* Voici un exemple d'utilisation : 
+
 ```bash
 
-Voici un exemple d'utilisation : 
+
 
 root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# ./visualisation-fichier.sh test_repertoire
 Voulez-vous visualiser fichier1.txt ? (o/n) o
@@ -593,7 +892,7 @@ root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3#
 
 # Conclusion
 
-* Ce TP m'a donc permis de mieux comprendre l'utilité et la puissance du shell Bash dans un environnement de type UNIX. En explorant divers scripts et en les développant, j'ai appris à automatiser certaines tâches courantes, comme manipuler des fichiers, traiter des paramètres d'entrée, et gérer des boucles et des conditions de manière efficace. Cela m'a également sensibilisé à l'importance de la lisibilité du code et des commentaires, ainsi qu'aux bonnes pratiques de sécurité, comme la gestion des droits d'accès.
+* Ce TP m'a permis de mieux comprendre l'utilité et la puissance du shell Bash dans un environnement UNIX. En explorant divers scripts et en les développant, j'ai appris à automatiser certaines tâches courantes, à manipuler des fichiers, à traiter des paramètres d'entrée, et à gérer des boucles et des conditions de manière efficace. Cela m'a également sensibilisé à l'importance de la lisibilité du code et des commentaires, ainsi qu'aux bonnes pratiques de sécurité, comme la gestion des droits d'accès.
 
 * Bien que Bash soit limité pour des projets complexes comparé à des langages comme Python, il reste un outil indispensable pour l'administration système et la gestion des serveurs. La maîtrise de ces concepts est essentielle pour tout professionnel travaillant dans un environnement Unix/Linux, surtout pour l'automatisation de tâches répétitives et la gestion des systèmes distants.
 

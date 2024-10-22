@@ -118,7 +118,7 @@ Voici la liste des paramètres : arg1 arg2 arg3
 ```
 
 
-Voici la liste des paramètres : arg1 arg2 arg3
+
 
 
 

@@ -831,6 +831,9 @@ root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3#
 * Comment avancer d’une page ?
   * Appuyez sur la barre d'espace.
 
+  * En effet voici ce que dis la documentation :
+  ![space-more](./img/space-more.png "space-more")
+
 * Comment remonter d’une page ?
   * Appuyez sur b.
 

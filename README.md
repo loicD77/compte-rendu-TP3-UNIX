@@ -685,53 +685,36 @@ root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3#
 ```
 
 
-### Vérification que l'utilisateur exécutant le script est root
-* **(id -u) :** Cette commande récupère l'ID utilisateur (UID) de l'utilisateur courant. L'UID de root est toujours 0.
-**[ "$(id -u)" -eq 0 ] :** Cette condition vérifie si l'UID est égal à 0, ce qui signifie que l'utilisateur est root.
-* **|| :** Opérateur "OU" logique. Si la condition à gauche est fausse (c'est-à-dire que l'utilisateur n'est pas root), alors la commande à droite sera exécutée.
-* **{ echo "Vous devez être root."; exit 1; } :** Si l'utilisateur n'est pas root, le script affiche un message d'erreur ("Vous devez être root.") et termine immédiatement avec un code de sortie 1 (indiquant une erreur).
-
-
-### Lecture d'un nom d'utilisateur (login)
-
-* **read -p "Login : " :** Cette commande lit une entrée de l'utilisateur via le terminal et l'affecte à la variable login.
-* **-p :** Cette option permet d'afficher un message d'invite ("Login : ") avant de lire l'entrée.
-* **login :** La variable dans laquelle l'entrée sera stockée. L'utilisateur doit entrer un nom d'utilisateur (login) qui sera utilisé plus tard dans le script.
-
-### Vérification si l'utilisateur existe déjà
-* id "$login" : Cette commande vérifie si un utilisateur avec le login fourni existe déjà sur le système. La commande id retourne des informations sur l'utilisateur si celui-ci existe.
-* &>/dev/null : Cette partie redirige la sortie et les erreurs de la commande vers /dev/null, c'est-à-dire qu'elle les supprime pour ne pas les afficher à l'écran.
-* && : Opérateur "ET" logique. Si la commande id "$login" réussit (c'est-à-dire que l'utilisateur existe), alors la commande à droite sera exécutée.
-{ echo "$login existe."; exit 1; } : Si l'utilisateur existe déjà, le script affiche un message d'erreur et s'arrête immédiatement avec un code de sortie 1.
-Exemple de sortie :
-
-```bash
-john existe.
-```
-
-### Création du nouvel utilisateur
-* useradd "$login" : Cette commande crée un nouvel utilisateur avec le nom d'utilisateur spécifié dans la variable login.
-* Si la création de l'utilisateur réussit, la commande retourne un succès.
-* && : Opérateur "ET" logique. Si la commande useradd réussit (l'utilisateur est bien créé), la commande à droite est exécutée.
-* echo "Utilisateur $login créé." : Cette commande affiche un message indiquant que l'utilisateur a été créé avec succès.
-
-
-### Exemple de sortie :
-
-* Si l'utilisateur entre john et que l'utilisateur john n'existait pas encore, après l'exécution de useradd, le script affichera :
-
-
-```bash
-Utilisateur john créé.
-```
 
 
 ## VII) check-user.sh
 
 
 ```bash
-  GNU nano 6.2                                          check-user.sh                                                   #!/bin/bash
-id "$1" &>/dev/null && echo "L'utilisateur $1 existe." || echo "L'utilisateur $1 n'existe pas."
+
+#!/bin/bash
+
+# Vérifier le nombre de paramètres
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 <login|UID>"
+    exit 1
+fi
+
+# Vérifier si le paramètre est un UID ou un login
+if [[ $1 =~ ^[0-9]+$ ]]; then
+    # C'est un UID
+    if getent passwd "$1" > /dev/null; then
+        # L'utilisateur existe, afficher l'UID
+        echo "$1"
+    fi
+else
+    # C'est un login
+    if id "$1" &>/dev/null; then
+        # L'utilisateur existe, afficher l'UID
+        id -u "$1"
+    fi
+fi
+
 
 
 ```
@@ -740,49 +723,15 @@ id "$1" &>/dev/null && echo "L'utilisateur $1 existe." || echo "L'utilisateur $1
 * Test du script :
 
 ```bash
-root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# ./check-user.sh rootdutp
-L'utilisateur rootdutp existe.
-root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# ./check-user.sh rootdutp2
-L'utilisateur rootdutp2 n'existe pas.
-
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# nano check-user.sh
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# ./check-user.sh JeanMarc
+1005
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# ./check-user.sh 1005
+1005
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# ./check-user.sh JeanMarcc
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# ./check-user.sh 244
 root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3#
 
-```
-
-### Vérification que l'utilisateur est root
-
-* (id -u) : Cette commande retourne l'ID utilisateur (UID) de l'utilisateur qui exécute le script. Si l'utilisateur est root, l'UID sera 0.
-* [ "$(id -u)" -eq 0 ] : Cette condition vérifie si l'UID est égal à 0, ce qui signifie que l'utilisateur est root.
-* || : Opérateur "OU" logique. Si la condition à gauche échoue (si l'utilisateur n'est pas root), alors la commande à droite sera exécutée.
-{ echo "Vous devez être root."; exit 1; } : Si l'utilisateur n'est pas root, le script affiche un message d'erreur ("Vous devez être root.") et se termine avec un code de sortie 1 (indiquant une erreur).
-
-
-### Lecture du nom d'utilisateur (login)
-
-* read -p "Login : " : Cette commande lit une entrée depuis le terminal, ici le nom d'utilisateur (login) que l'utilisateur souhaite créer.
-* -p : Cette option permet d'afficher un message d'invite ("Login : ") avant de lire l'entrée.
-* login : La variable dans laquelle la valeur entrée par l'utilisateur sera stockée.
-
-
-### Vérification si l'utilisateur existe déjà
-* id "$login" : Cette commande vérifie si un utilisateur avec le nom d'utilisateur (login) fourni existe déjà. Si l'utilisateur existe, elle retourne des informations sur cet utilisateur.
-* &>/dev/null : Cette partie redirige la sortie standard et les erreurs vers /dev/null, ce qui signifie que la sortie ne sera pas affichée.
-* && : Opérateur "ET" logique. Si la commande id "$login" réussit (c'est-à-dire que l'utilisateur existe), la commande à droite sera exécutée.
-{ echo "$login existe."; exit 1; } : Si l'utilisateur existe déjà, le script affiche un message d'erreur disant que cet utilisateur existe déjà et s'arrête avec un code de sortie 1.
-
-#### Création de l'utilisateur
-* useradd "$login" : Cette commande crée un nouvel utilisateur avec le login spécifié. Si la commande réussit, elle retourne un succès.
-* && : Opérateur "ET" logique. Si la commande useradd réussit (c'est-à-dire que l'utilisateur a été créé), la commande à droite sera exécutée.
-* echo "Utilisateur $login créé." : Si l'utilisateur a bien été créé, le script affiche un message confirmant la création.
-
-Exemple de sortie :
-
-Si l'utilisateur jane n'existait pas avant, le script affichera après la création réussie :
-
-
-
-```bash
-Utilisateur jane créé.
 ```
 
 

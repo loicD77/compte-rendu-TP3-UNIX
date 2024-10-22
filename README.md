@@ -793,7 +793,30 @@ root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# ./check-user.sh 244
 root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3#
 
 ```
+### Vérification du nombre de paramètres
 
+
+* **$#** : C'est une variable spéciale qui représente le nombre de paramètres passés au script.
+* **-ne** : Signifie "not equal". Si le nombre d'arguments n'est pas égal à 1, le script affiche un message d'utilisation et se termine avec un code d'erreur (exit 1).
+
+
+## Vérification du type de paramètre (UID ou login)
+
+* **=~** : C'est un opérateur qui permet de tester une correspondance avec une expression régulière
+
+### Vérification de l'existence d'un utilisateur par UID
+
+
+* **getent passwd "$1"** : Cela recherche l'utilisateur correspondant à l'UID dans le fichier de mots de passe.
+* **> /dev/null** : Cela redirige la sortie vers /dev/null, ce qui signifie que la sortie standard est ignorée. Seule la valeur de retour de la commande est prise en compte.
+* **echo "$1"** : Si l'utilisateur existe, il affiche l'UID.
+
+
+### Vérification de l'existence d'un utilisateur par login
+
+* **id "$1"** : La commande id est utilisée pour obtenir des informations sur l'utilisateur (comme son UID) basé sur le login.
+* **&>/dev/null** : Redirige à la fois la sortie standard et les erreurs vers /dev/null, ne laissant que la valeur de retour.
+* **id -u "$1"** : Si l'utilisateur existe, cette commande affiche son UID
 
 
 ## VIII) note.sh

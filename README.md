@@ -515,7 +515,7 @@ Exemple de sortie : Si le répertoire /chemin/vers/repertoire contient deux sous
 
 ## V) user.sh : 
 
-* Voici le script de user.sh avec **cut**: 
+* Voici le script de user.sh avec **cut**:  (user2.sh)
 
   ```bash
   #!/bin/bash
@@ -541,7 +541,7 @@ awk -F: '$3 > 100 {print $1}' /etc/passwd
 ```
 
 
-* Test du script 
+* Test des scripts 
 ```bash 
 root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# ./users.sh
 nobody
@@ -555,7 +555,22 @@ tcpdump
 postgres
 sshd
 landscape
+rootdutp
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# ./user2.sh
+nobody
+systemd-resolve
+messagebus
+systemd-timesync
+syslog
+_apt
+uuidd
+tcpdump
+postgres
+sshd
+landscape
+rootdutp
 root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3#
+
 
 
 ```

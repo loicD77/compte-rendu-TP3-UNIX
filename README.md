@@ -5,7 +5,7 @@ DARRAS Loïc L3 PRO PROJET WEB ET MOBILE
 
 
 
-* Ici ce troisième tp recouvre l'écriture de divers scripts dont :
+* Ici ce troisième tp recouvre l'écriture de divers scripts bash dont :
    * analyse.sh
    * concat.sh
    * test-fichier.sh

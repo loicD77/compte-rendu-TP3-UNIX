@@ -575,6 +575,15 @@ root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3#
 
 ```
 
+### Explication avec cut
+
+* Boucle for
+ * for user in $(cut -d: -f1,3 /etc/passwd); do
+Cette ligne commence une boucle for qui parcourt les utilisateurs extraits du fichier /etc/passwd.
+* cut -d: -f1,3 extrait les champs 1 et 3 (nom d'utilisateur et UID) de chaque ligne du fichier /etc/passwd, en utilisant : comme délimiteur.
+$(...) exécute la commande et remplace cette partie par sa sortie.
+### Explication avec awk
+
 ### La commande awk
 * awk est un utilitaire puissant utilisé pour la manipulation et l'extraction de données à partir de fichiers texte. Ici, il est utilisé pour traiter le fichier /etc/passwd, qui contient des informations sur les utilisateurs du système.
 * -F: : Cette option indique à awk que le fichier /etc/passwd utilise : (deux-points) comme séparateur de champs. Chaque ligne du fichier /etc/passwd contient plusieurs champs séparés par des deux-points.

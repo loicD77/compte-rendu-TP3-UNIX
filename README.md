@@ -841,7 +841,7 @@ root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3#
 * Comment remonter d’une page ?
   * Appuyez sur b.
 
-
+  ![b](./img/b.png "b")
 
 Comment chercher une chaîne de caractères ?
 Tapez **/votre_chaine** et appuyez sur Entrée. Pour passer à l’occurrence suivante, appuyez sur n.

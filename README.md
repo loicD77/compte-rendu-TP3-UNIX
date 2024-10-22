@@ -166,7 +166,10 @@ echo "Concaténation : $1$2"
 ```bash 
 root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# ./concat.sh mot1 mot2
 Concaténation : mot1mot2
+root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3# ./concat.sh mot1 mot2 ff
+Il faut 2 paramètres.
 root@LAPTOP-E9LS6Q7M:/mnt/c/WINDOWS/system32/tp3#
+
 ```
 
 
